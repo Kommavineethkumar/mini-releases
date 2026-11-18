@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Mini desktop beta downloads, supported systems, and instructions for verifying a release.">
+  <title>Mini · Desktop downloads</title>
+  <link rel="icon" href="mini.png" type="image/png">
+  <style>
+:root {
+  color-scheme: dark;
+  --ink: #252527;
+  --paper: #f9f8f5;
+  --orange: #ffab50;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.6;
+  background: #202023;
+  color: #faf9f5;
+}
+* { box-sizing: border-box; }
+body, figure, h1, h2, h3, p { margin: 0; }
+.wrap { width: min(72rem, calc(100% - 3rem)); margin-inline: auto; }
+a { color: inherit; text-underline-offset: .25em; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 3px solid #438fff; outline-offset: 4px; }
+.skip { position: absolute; left: 1rem; top: -6rem; padding: .7rem; background: white; color: black; z-index: 1; }
+.skip:focus { top: .5rem; }
+header, nav, .brand, figcaption, .cta { display: flex; align-items: center; }
+header { justify-content: space-between; gap: 1rem; padding-block: 1.2rem; border-bottom: 1px solid #48484b; }
+.brand { gap: .5rem; font-size: 1.5rem; font-weight: 720; letter-spacing: -.055em; }
+nav { flex-wrap: wrap; gap: clamp(.7rem, 3vw, 2.5rem); }
+nav a { padding-block: .3rem; font-size: .9rem; text-decoration: none; }
+.hero { display: grid; grid-template-columns: .82fr 1.18fr; align-items: center; gap: 4%; padding-block: clamp(3rem, 7vw, 6.5rem); }
+.status, .spec, figcaption { font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; }
+.status { font-size: .83rem; color: #ffd39f; }
+.status::before { content: ""; display: inline-block; width: .55rem; height: .55rem; margin-right: .6rem; border-radius: 50%; background: var(--orange); }
+h1 { margin-block: 1.3rem 1rem; font-size: clamp(4rem, 7.1vw, 6.5rem); line-height: .95; font-weight: 650; letter-spacing: -.072em; }
+h1 span { color: var(--orange); }
+.intro { max-width: 26rem; color: #dddcd8; font-size: 1.2rem; line-height: 1.45; }
+.cta { width: fit-content; gap: 1.3rem; margin-top: 1.8rem; padding: .78rem 1.2rem; background: var(--orange); color: #211b15; font-weight: 650; border-radius: .45rem; text-decoration: none; }
+.cta:hover { background: #ffbf77; }
+.hint { margin-top: .7rem; color: #c1bfbd; font-size: .85rem; }
+.preview { padding: 7%; border-radius: .9rem; background-color: #eeb172; background-image: radial-gradient(#985d3e80 .85px, transparent 1px); background-size: 9px 9px; }
+.preview a, .preview img { display: block; border-radius: .5rem; }
+.preview img { width: 100%; height: auto; box-shadow: 0 .8rem 1.8rem #593b2740; }
+figcaption { justify-content: space-between; gap: 1rem; margin-top: .7rem; font-size: .78rem; color: #c1bfbd; }
+figcaption strong { color: #f6f3ed; }
+.paper { background: var(--paper); color: var(--ink); }
+.block, footer { padding-block: clamp(2.5rem, 5vw, 4.5rem); }
+h2 { font-size: clamp(1.9rem, 4vw, 3rem); letter-spacing: -.055em; line-height: 1.1; }
+h3 { font-size: 1.32rem; line-height: 1.3; letter-spacing: -.035em; }
+.block > p { margin-top: .9rem; }
+.systems { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-block: 2rem; }
+article { border-top: 2px solid #b8aba0; padding-top: 1rem; }
+.spec { font-size: .83rem; color: #755029; margin-block: .25rem .8rem; }
+.relay { display: grid; grid-template-columns: 1fr 3fr; align-items: baseline; gap: 1rem; padding: 1.4rem; border-radius: .5rem; background: #eeebe5; }
+.guide { display: grid; grid-template-columns: 1fr 1.65fr; gap: 2rem; align-items: baseline; }
+#verify { border-top: 1px solid #c9c5be; }
+ol { margin: 1rem 0 0; padding-left: 1.5rem; }
+li { padding-left: .3rem; margin-top: .7rem; }
+li::marker { font-weight: bold; color: #755029; }
+code { overflow-wrap: anywhere; }
+pre { margin: .6rem 0; padding: .75rem 1rem; background: #eae7e1; border-radius: .35rem; white-space: pre-wrap; }
+footer a { display: block; width: fit-content; margin-top: .65rem; color: #ffd39f; }
+@media (max-width: 48rem) {
+  .hero, .systems, .guide, .relay { grid-template-columns: 1fr; }
+  .hero { gap: 2rem; }
+  .systems, .guide { gap: 1.25rem; }
+  .relay { gap: .5rem; }
+}
+@media (max-width: 26rem) {
+  .wrap { width: calc(100% - 2rem); }
+  header { flex-wrap: wrap; }
+}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="wrap">
+    <span class="brand"><img src="mini.png" width="42" height="42" alt="">Mini</span>
+    <nav aria-label="Page navigation"><a href="#platforms">Platforms</a><a href="#verify">Verification</a><a href="#support">Support</a></nav>
+  </header>
+  <main id="main" tabindex="-1">
+    <section class="hero wrap" aria-labelledby="title">
+      <div>
+        <p class="status">First public beta coming soon</p>
+        <h1 id="title">Mini for<br>desktop<span>.</span></h1>
+        <p class="intro">Bring your notes, editor, browser, and terminal together in one workspace.</p>
+        <a class="cta" href="https://github.com/Kommavineethkumar/mini-releases/releases">View GitHub Releases <span aria-hidden="true">↗</span></a>
+        <p class="hint">Beta downloads and release notes will appear there.</p>
+      </div>
+      <figure>
+        <div class="preview"><a href="notes-demo.png" aria-label="View the full-size Mini Notes demo screenshot"><img src="notes-demo.png" width="1180" height="842" alt="Mini Notes with three sample notes titled Groceries, Ideas, and Launch checklist."></a></div>
+        <figcaption><strong>Mini Notes</strong><span>Demo workspace</span></figcaption>
+      </figure>
+    </section>
+    <div class="paper">
+      <section class="wrap block" id="platforms" aria-labelledby="platform-title">
+        <h2 id="platform-title">Desktop platforms</h2>
+        <p>The beta is planned as a direct download. Each release will list its packages and signing status.</p>
+        <div class="systems">
+          <article><h3>macOS</h3><p class="spec">13+ · Apple silicon &amp; Intel</p><p>Universal disk image. The planned beta uses an unnotarized app, so Gatekeeper may block it on first open.</p></article>
+          <article><h3>Windows</h3><p class="spec">10 &amp; 11 · x64</p><p>Per-user installer. The planned unsigned build may show an unknown-publisher warning, and SmartScreen may block launch.</p></article>
+          <article><h3>Linux</h3><p class="spec">Ubuntu 24.04 · x64</p><p>Debian package for Ubuntu 24.04 or compatible systems with glibc 2.39+ and the WebKitGTK 4.1 runtime (2.42+).</p></article>
+        </div>
+        <aside class="relay"><h3>On your phone</h3><p>With Mini running on your computer, open Relay in Mini and create a pairing link. Open it in your phone’s browser to use the desktop workspace remotely.</p></aside>
+      </section>
+      <section class="wrap block guide" id="verify" aria-labelledby="verify-title">
+        <h2 id="verify-title">Verify a download</h2>
+        <div><p>When the beta ships, open its entry in GitHub Releases. Download the package for your system, <code>SHA256SUMS</code>, and <code>SHA256SUMS.minisig</code> from that same entry.</p>
+          <ol>
+            <li>Save the <a href="mini.pub" download>Mini public key (mini.pub)</a>. Compute its SHA-256 digest and compare it with the value below. Before trusting the key, confirm this digest through the maintainer’s separately managed channel.<pre><code>2fdfe0b47e9cba1ffad73362ec8e612a3cef487f87b1928b75299ecf52109659</code></pre></li>
+            <li>In the download folder, authenticate the checksum list with Minisign.<pre><code>minisign -Vm SHA256SUMS -p mini.pub</code></pre></li>
+            <li>Once the signature verifies, use the SHA-256 command in the release notes. Match the entire digest to the entry for your exact filename before opening the package.</li>
+          </ol>
+        </div>
+      </section>
+    </div>
+  </main>
+  <footer class="wrap guide" id="support">
+    <h2>Need help?</h2>
+    <p>If verification fails or installation is blocked, stop and report the release tag, operating system, and warning text. Remove personal details before posting. <a href="https://github.com/Kommavineethkumar/mini-releases/issues">Open public issues <span aria-hidden="true">↗</span></a></p>
+  </footer>
+</body>
+</html>
