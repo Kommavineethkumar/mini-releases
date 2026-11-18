@@ -1,0 +1,61 @@
+name: Windows desktop candidate
+on:
+  push:
+    branches: [qa/windows-candidate]
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-2022
+    timeout-minutes: 12
+    env:
+      TAG: v0.1.1-beta.1
+      MANIFEST_SHA: 979aadca763119a4018d29a28fdec3b556ca4e79e77c1e3126205ac2ed1d8f4a
+    steps:
+      - name: Download candidate and compare with the verified release manifest
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $setup = "Mini-$($env:TAG.Substring(1))-windows-x64-setup.exe"
+          gh release download $env:TAG --repo $env:GITHUB_REPOSITORY --pattern $setup --pattern SHA256SUMS
+          if ($LASTEXITCODE -ne 0) { throw 'Candidate download failed' }
+          if ((Get-FileHash SHA256SUMS).Hash -ne $env:MANIFEST_SHA) { throw 'Unexpected manifest' }
+          $hash = (Get-FileHash $setup).Hash.ToLowerInvariant()
+          if ("$hash  $setup" -cnotin (Get-Content SHA256SUMS)) { throw 'Installer digest mismatch' }
+
+      - name: Install, launch from Start, check WebView2, and uninstall
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $version = $env:TAG.Substring(1)
+          $setup = "$PWD\Mini-$version-windows-x64-setup.exe"
+          $dir = "$env:LOCALAPPDATA\Programs\Mini"
+          $shortcut = Join-Path ([Environment]::GetFolderPath('Programs')) 'Mini.lnk'
+          if (Test-Path $dir) { throw 'Expected a clean installation' }
+          $proc = Start-Process $setup -ArgumentList '/S' -PassThru -Wait
+          if ($proc.ExitCode -ne 0) { throw "Setup failed with $($proc.ExitCode)" }
+          if ((& "$dir\mini.exe" --version) -ne "mini $version") { throw 'Wrong installed version' }
+          $link = (New-Object -ComObject WScript.Shell).CreateShortcut($shortcut)
+          if ($link.TargetPath -ine "$dir\mini.exe") { throw 'Start shortcut target mismatch' }
+          $env:MINI_HOME = Join-Path $env:RUNNER_TEMP 'mini-qa-profile'
+          Start-Process -FilePath $shortcut
+          $deadline = (Get-Date).AddSeconds(90)
+          do {
+            Start-Sleep 2
+            $app = Get-Process mini -ErrorAction SilentlyContinue | Where-Object { $_.Path -ieq "$dir\mini.exe" -and $_.MainWindowHandle -ne 0 } | Select-Object -First 1
+            if ($app) {
+              $browser = Get-CimInstance Win32_Process -Filter "Name='msedgewebview2.exe' AND ParentProcessId=$($app.Id)"
+              if ($browser) { break }
+            }
+          } while ((Get-Date) -lt $deadline)
+          if (-not ($app -and $browser)) { throw 'Expected a desktop window and its WebView2 process' }
+          Write-Output "Started $($app.MainWindowTitle) from the Start menu with WebView2."
+          Stop-Process -Id $app.Id -Force
+          Start-Process "$dir\uninstall.exe" -ArgumentList '/S' -Wait
+          $deadline = (Get-Date).AddSeconds(30)
+          while ((Test-Path "$dir\mini.exe") -and (Get-Date) -lt $deadline) { Start-Sleep 1 }
+          if ((Test-Path "$dir\mini.exe") -or (Test-Path $shortcut)) { throw 'Incomplete uninstall' }
+          if (-not (Test-Path $env:MINI_HOME)) { throw 'Expected retained Mini profile' }
+          Write-Output 'Uninstall removed the executable and shortcut, and preserved the profile.'
