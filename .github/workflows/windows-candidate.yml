@@ -3,7 +3,8 @@ on:
   push:
     branches: [qa/windows-candidate]
 permissions:
-  contents: read
+  # GitHub exposes draft assets only to collaborators with push access.
+  contents: write
 jobs:
   windows:
     runs-on: windows-2022
