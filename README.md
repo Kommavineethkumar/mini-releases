@@ -1,5 +1,7 @@
 # Mini desktop downloads
 
+[Official download page](https://mini-platform-downloads.web.app/)
+
 Mini brings Notes, Editor, Browser, Terminal, and other mini apps into one desktop workspace. **The first public beta is forthcoming.** The public Releases index is the canonical source for beta packages, signing status, and version-specific installation notes. [View GitHub Releases](https://github.com/Kommavineethkumar/mini-releases/releases).
 
 ## Planned desktop builds

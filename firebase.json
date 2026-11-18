@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "mini-platform-downloads",
+    "public": ".",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**", "README.md", "*-debug.log"],
+    "headers": [
+      {"source": "/mini.pub", "headers": [{"key": "Content-Type", "value": "text/plain; charset=utf-8"}]},
+      {"source": "**", "headers": [{"key": "X-Content-Type-Options", "value": "nosniff"}, {"key": "Referrer-Policy", "value": "no-referrer"}]}
+    ]
+  }
+}
