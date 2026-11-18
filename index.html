@@ -83,11 +83,11 @@ footer a { display: block; width: fit-content; margin-top: .65rem; color: #ffd39
   <main id="main" tabindex="-1">
     <section class="hero wrap" aria-labelledby="title">
       <div>
-        <p class="status">First public beta coming soon</p>
+        <p class="status">Desktop beta · 0.1.1-beta.1</p>
         <h1 id="title">Mini for<br>desktop<span>.</span></h1>
         <p class="intro">Bring your notes, editor, browser, and terminal together in one workspace.</p>
-        <a class="cta" href="https://github.com/Kommavineethkumar/mini-releases/releases">View GitHub Releases <span aria-hidden="true">↗</span></a>
-        <p class="hint">Beta downloads and release notes will appear there.</p>
+        <a class="cta" href="#platforms">Choose a download</a>
+        <p class="hint">Before opening Mini, <a href="#verify">verify your download with Minisign</a>.</p>
       </div>
       <figure>
         <div class="preview"><a href="notes-demo.png" aria-label="View the full-size Mini Notes demo screenshot"><img src="notes-demo.png" width="1180" height="842" alt="Mini Notes with three sample notes titled Groceries, Ideas, and Launch checklist."></a></div>
@@ -97,17 +97,17 @@ footer a { display: block; width: fit-content; margin-top: .65rem; color: #ffd39
     <div class="paper">
       <section class="wrap block" id="platforms" aria-labelledby="platform-title">
         <h2 id="platform-title">Desktop platforms</h2>
-        <p>The beta is planned as a direct download. Each release will list its packages and signing status.</p>
+        <p>Get the packages, checksums, and installation notes for <a href="https://github.com/Kommavineethkumar/mini-releases/releases/tag/v0.1.1-beta.1">Mini 0.1.1-beta.1</a>.</p>
         <div class="systems">
-          <article><h3>macOS</h3><p class="spec">13+ · Apple silicon &amp; Intel</p><p>Universal disk image. The planned beta uses an unnotarized app, so Gatekeeper may block it on first open.</p></article>
-          <article><h3>Windows</h3><p class="spec">10 &amp; 11 · x64</p><p>Per-user installer. The planned unsigned build may show an unknown-publisher warning, and SmartScreen may block launch.</p></article>
-          <article><h3>Linux</h3><p class="spec">Ubuntu 24.04 · x64</p><p>Debian package for Ubuntu 24.04 or compatible systems with glibc 2.39+ and the WebKitGTK 4.1 runtime (2.42+).</p></article>
+          <article><h3>macOS</h3><p class="spec">13+ · Apple silicon &amp; Intel</p><p><a href="https://github.com/Kommavineethkumar/mini-releases/releases/download/v0.1.1-beta.1/Mini-0.1.1-beta.1-macos-universal.dmg">Download .dmg</a> or <a href="https://github.com/Kommavineethkumar/mini-releases/releases/download/v0.1.1-beta.1/Mini-0.1.1-beta.1-macos-universal.zip">download .zip</a>. Both contain the universal app. Gatekeeper may block first launch because this beta is unnotarized.</p></article>
+          <article><h3>Windows</h3><p class="spec">10 &amp; 11 · x64</p><p><a href="https://github.com/Kommavineethkumar/mini-releases/releases/download/v0.1.1-beta.1/Mini-0.1.1-beta.1-windows-x64-setup.exe">Download setup</a> or <a href="https://github.com/Kommavineethkumar/mini-releases/releases/download/v0.1.1-beta.1/Mini-0.1.1-beta.1-windows-x64-portable.zip">download the portable ZIP</a>. Windows may flag the unsigned app as an unknown publisher. The window requires Microsoft WebView2.</p></article>
+          <article><h3>Linux</h3><p class="spec">Ubuntu 24.04 · x64</p><p><a href="https://github.com/Kommavineethkumar/mini-releases/releases/download/v0.1.1-beta.1/mini_0.1.1-beta.1-1_amd64.deb">Download the Debian package</a>, <a href="https://github.com/Kommavineethkumar/mini-releases/releases/download/v0.1.1-beta.1/Mini-0.1.1-beta.1-linux-x64.AppImage">AppImage</a> or <a href="https://github.com/Kommavineethkumar/mini-releases/releases/download/v0.1.1-beta.1/Mini-0.1.1-beta.1-linux-x64.tar.gz">tar archive</a>. All three require glibc 2.39+ and WebKitGTK 4.1 (2.42+) on Ubuntu 24.04 or a compatible system.</p></article>
         </div>
-        <aside class="relay"><h3>On your phone</h3><p>With Mini running on your computer, open Relay in Mini and create a pairing link. Open it in your phone’s browser to use the desktop workspace remotely.</p></aside>
+        <aside class="relay"><h3>On your phone</h3><p>With Mini running on your computer, open Relay in Mini and create a pairing link. Open the link in your phone’s browser or paste it into <a href="https://mini-relay.web.app/">Mini Relay</a>. Keep the computer online while you use it.</p></aside>
       </section>
       <section class="wrap block guide" id="verify" aria-labelledby="verify-title">
         <h2 id="verify-title">Verify a download</h2>
-        <div><p>When the beta ships, open its entry in GitHub Releases. Download the package for your system, <code>SHA256SUMS</code>, and <code>SHA256SUMS.minisig</code> from that same entry.</p>
+        <div><p>Open the <a href="https://github.com/Kommavineethkumar/mini-releases/releases/tag/v0.1.1-beta.1">beta release assets</a>. Download the package for your system, <code>SHA256SUMS</code>, and <code>SHA256SUMS.minisig</code> from that same entry.</p>
           <ol>
             <li>Save the <a href="mini.pub" download>Mini public key (mini.pub)</a>. Compute its SHA-256 digest and compare it with the value below. Before trusting the key, confirm this digest through the maintainer’s separately managed channel.<pre><code>2fdfe0b47e9cba1ffad73362ec8e612a3cef487f87b1928b75299ecf52109659</code></pre></li>
             <li>In the download folder, authenticate the checksum list with Minisign.<pre><code>minisign -Vm SHA256SUMS -p mini.pub</code></pre></li>
